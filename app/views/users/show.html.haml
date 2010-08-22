@@ -3,31 +3,31 @@
   %head
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "content-type"}/
     %title Awesome
-		%script{:src => "http://www.google.com/jsapi?key=ABQIAAAAUXDSXET8IRGdgHP9FpGw5BT-fVzUWGS_eJ2ZLPBO_6yPqTi0vhQKAzahOrduDq0xQk09GR-UP3Jgcg"}
-		:javascript
-		  google.load("jquery", '1.4');
-		  google.load("maps", "2.x");
-		%script{:src => "/src/geometrycontrols.js", :type => "text/javascript"}
-		%script{:src => "/src/markercontrol.js", :type => "text/javascript"}
-		%script{:src => "/src/polygoncontrol.js", :type => "text/javascript"}
-		%script{:src => "/examples/scripts/map_main.js", :type => "text/javascript"}
-	%body
-		%h1
-		  = "GeoNotifications for #{@user.email}"
+    %script{:src => "http://www.google.com/jsapi?key=ABQIAAAAUXDSXET8IRGdgHP9FpGw5BT-fVzUWGS_eJ2ZLPBO_6yPqTi0vhQKAzahOrduDq0xQk09GR-UP3Jgcg"}
+    :javascript
+      google.load("jquery", '1.4');
+      google.load("maps", "2.x");
+    %script{:src => "/src/geometrycontrols.js", :type => "text/javascript"}
+    %script{:src => "/src/markercontrol.js", :type => "text/javascript"}
+    %script{:src => "/src/polygoncontrol.js", :type => "text/javascript"}
+    %script{:src => "/examples/scripts/map_main.js", :type => "text/javascript"}
+  %body
+    %h1
+      = "GeoNotifications for #{@user.email}"
 
-		%h2 Contact Methods
-		%ul
-		  - @user.contacts.each do |contact|
-		    %li
-		      = contact.description
-		      = " [#{link_to("Edit", edit_contact_path(contact))}] "
-		      = "[#{link_to("Delete", contact_path(contact), :method => :delete)}] "
-		      = "[#{link_to "Test", send_test_message_contact_path(contact)}]"
-		  %li
-		    = link_to "Add a contact method", new_contact_path
+    %h2 Contact Methods
+    %ul
+      - @user.contacts.each do |contact|
+        %li
+          = contact.description
+          = " [#{link_to("Edit", edit_contact_path(contact))}] "
+          = "[#{link_to("Delete", contact_path(contact), :method => :delete)}] "
+          = "[#{link_to "Test", send_test_message_contact_path(contact)}]"
+      %li
+        = link_to "Add a contact method", new_contact_path
 
-		#map_canvas{:style => "width: 1200px; height: 500px"}
+    #map_canvas{:style => "width: 1200px; height: 500px"}
 
-		= link_to 'Edit', edit_account_path
-		|
-		= link_to 'Logout', logout_path
+    = link_to 'Edit', edit_account_path
+    |
+    = link_to 'Logout', logout_path
