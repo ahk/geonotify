@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  geometry: MyText
+  starts_at: 2010-08-22 03:21:43
+  ends_at: 2010-08-22 03:21:43
+  name: MyString
+
+two:
+  geometry: MyText
+  starts_at: 2010-08-22 03:21:43
+  ends_at: 2010-08-22 03:21:43
+  name: MyString

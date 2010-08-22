@@ -9,4 +9,5 @@ class User < ActiveRecord::Base
   end
 
   has_many :contacts
+  has_many :areas
 end

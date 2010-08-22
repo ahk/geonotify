@@ -12,6 +12,15 @@
   %li
     = link_to "Add a contact method", new_contact_path
 
+%h2 Areas of Interest
+%ul
+  - @user.areas.each do |area|
+    %li
+      = link_to area.name, area_path(area)
+      = " [#{link_to("Edit", edit_area_path(area))}] "
+      = "[#{link_to("Delete", area_path(area), :method => :delete)}]"
+  %li
+    = link_to "Add an area of interest", new_area_path
 
 
 = link_to 'Edit', edit_account_path

@@ -1,0 +1,8 @@
+- semantic_form_for(@area) do |f|
+  - f.inputs do
+    = f.input :name
+    = f.input :geometry, :label => "Geometry (GeoJSON)"
+    = f.input :starts_at, :as => :datetime
+    = f.input :ends_at, :as => :datetime
+  - f.buttons do
+    = f.commit_button
