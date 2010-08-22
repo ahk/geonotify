@@ -1058,9 +1058,11 @@ GeometryControls.prototype.saveData = function(opts){
 		vertex = record.geometry.getVertex(i);
 		recordJSON.geometry.coordinates.push([vertex.lng(),vertex.lat()]);
 	}
+  // stringify the geometry
+  recordJSON.geometry = JSON.stringify(recordJSON.geometry);
 	//add title
-	recordJSON.title = record.title[0];
-	$.post('/areas', recordJSON);
+	recordJSON.name = record.title[0];
+	$.post('/areas', {area: recordJSON});
 };
 
 /**
