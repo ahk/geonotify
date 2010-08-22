@@ -7,4 +7,6 @@ class User < ActiveRecord::Base
     reset_perishable_token!
     UserMailer.deliver_password_reset!(self)
   end
+
+  has_many :contacts
 end

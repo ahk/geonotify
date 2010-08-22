@@ -1,6 +1,15 @@
 %h1
   = "GeoNotifications for #{@user.email}"
 
+%h2 Contact Methods
+%ul
+  - @user.contacts.each do |contact|
+    %li
+      = contact.description
+      = " [#{link_to("Edit", edit_contact_path(contact))}] "
+      = "[#{link_to("Delete", contact_path(contact), :method => :delete)}]"
+  %li
+    = link_to "Add a contact method", new_contact_path
 
 
 

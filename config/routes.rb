@@ -4,11 +4,14 @@ ActionController::Routing::Routes.draw do |map|
   map.logout   'logout', :controller => "user_sessions", :action => "destroy"
     
   map.resource :account, :controller => "users"
-  map.resources :users
+  map.resources :users do |user|
+    map.resources :contacts, :except => [:index, :show  ]
+  end
   
   map.resources :password_resets
   
   map.root :controller => "user_sessions", :action => "new"
+
   # map.connect ':controller/:action/:id'
   # map.connect ':controller/:action/:id.:format'
 end

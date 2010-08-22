@@ -1,0 +1,7 @@
+- semantic_form_for(@contact) do |f|
+  - f.inputs do
+    = f.input :nickname
+    = f.input :contact_type, :collection => Contact::TYPES.invert
+    = f.input :value, :label => "To"
+  - f.buttons do
+    = f.commit_button
