@@ -1,5 +1,9 @@
 class ContactsController < ApplicationController
-  before_filter :load_contact, :only => [:edit, :update, :destroy]
+  before_filter :load_contact, :only => [:show, :edit, :update, :destroy, :send_test_message]
+
+  def show
+    # loaded by load_contact
+  end
 
   def new
     @contact = Contact.new
@@ -16,7 +20,7 @@ class ContactsController < ApplicationController
   end
 
   def edit
-
+    # loaded by load_contact
   end
 
   def update
@@ -30,6 +34,12 @@ class ContactsController < ApplicationController
 
   def destroy
     @contact.destroy and redirect_to account_path
+  end
+
+  def send_test_message
+    @contact.send_message("This is a test of the Geographic Notification System. Had this been an actual geographic emergency, you would have been informed that your house was on fire.")
+    flash[:success] = "A test message has been sent."
+    redirect_to account_path
   end
 
   private

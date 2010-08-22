@@ -22,6 +22,7 @@ Rails::Initializer.run do |config|
   config.gem "authlogic", :version => '2.1.6'
   config.gem "haml", :version => '3.0.17'
   config.gem "formtastic", :version => '1.0.0'
+  config.gem "httparty", :version => '0.6.1'
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named

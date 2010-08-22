@@ -8,6 +8,17 @@ class Contact < ActiveRecord::Base
 
   def description
     (self.nickname.present? ? "\"#{self.nickname}\", a " : '') +
-      "#{TYPES[self.contact_type].downcase} to #{self.value}"
+      "#{TYPES[self.contact_type]} to #{self.value}"
+  end
+
+  def send_message(message)
+    case contact_type
+      when 'sms', 'call'
+        send_message_via_tropo(message)
+    end
+  end
+
+  def send_message_via_tropo(message)
+    TropoParty.send_message(contact_type, self.value, message)
   end
 end

@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
     
   map.resource :account, :controller => "users"
   map.resources :users do |user|
-    map.resources :contacts, :except => [:index, :show  ]
+    map.resources :contacts, :except => [:index], :member => [:send_test_message]
   end
   
   map.resources :password_resets
