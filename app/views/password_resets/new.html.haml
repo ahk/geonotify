@@ -1,0 +1,9 @@
+%h1 Reset Your Password
+
+Enter your e-mail address to receive a password reset e-mail!
+%br
+%br
+
+- form_tag(password_resets_url) do
+	= text_field_tag :email
+	= submit_tag "Send E-mail!", :class => "FormSubmit"

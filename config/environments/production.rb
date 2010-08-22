@@ -23,6 +23,11 @@ config.action_view.cache_template_loading            = true
 
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
+config.action_mailer.default_url_options = { :host => "geonotify.heroku.com" }
+ActionMailer::Base.delivery_method = :smtp # see gmail_smtp plugin in vendor
+ActionMailer::Base.perform_deliveries = true
+ActionMailer::Base.raise_delivery_errors = true
+ActionMailer::Base.default_charset = "iso-8859-1"
 
 # Enable threaded mode
 # config.threadsafe!

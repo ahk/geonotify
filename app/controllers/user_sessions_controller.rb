@@ -1,5 +1,6 @@
 class UserSessionsController < ApplicationController
-  before_filter :require_no_user, :only => [:new, :create]
+  
+  before_filter :require_no_user, :only => [:new, :create, :activate]
   before_filter :require_user, :only => :destroy
   
   def new
@@ -13,7 +14,7 @@ class UserSessionsController < ApplicationController
       redirect_back_or_default account_url
     else
       render :action => :new
-    end
+    end 
   end
   
   def destroy
@@ -21,4 +22,5 @@ class UserSessionsController < ApplicationController
     flash[:notice] = "Logout successful!"
     redirect_back_or_default new_user_session_url
   end
+  
 end
