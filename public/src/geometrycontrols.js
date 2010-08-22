@@ -764,14 +764,9 @@ GeometryControls.prototype.handleKmlDataResponse_ = function(data, responseCode)
       var placemarks = xmlDoc.documentElement.getElementsByTagName("Placemark");
       for (var i = 0; i < placemarks.length; i++) {
         var name = EGeoXml.value(placemarks[i].getElementsByTagName("name")[0]);
-        var desc = EGeoXml.value(placemarks[i].getElementsByTagName("start")[0]);
-        var desc = EGeoXml.value(placemarks[i].getElementsByTagName("end")[0]);
-        if (desc.match(/^http:\/\//i)) {
-          desc = '<a href="' + desc + '">' + desc + '</a>';
-        }
-        if (desc.match(/^https:\/\//i)) {
-          desc = '<a href="' + desc + '">' + desc + '</a>';
-        }
+        var start = EGeoXml.value(placemarks[i].getElementsByTagName("start")[0]);
+        var end = EGeoXml.value(placemarks[i].getElementsByTagName("end")[0]);
+
         var style = EGeoXml.styles[EGeoXml.value(placemarks[i].getElementsByTagName("styleUrl")[0])] || {}; 
         var coords=GXml.value(placemarks[i].getElementsByTagName("coordinates")[0]); //TODO what about inner boundaries?
         coords=coords.replace(/\s+/g," "); // tidy the whitespace
@@ -808,8 +803,8 @@ GeometryControls.prototype.handleKmlDataResponse_ = function(data, responseCode)
                 type:"line",
                 coordinates:points,
                 title:name,
-                start: desc,
-								end: desc,
+                start: start,
+								end: end,
                 style: {
                   strokeColor:style.fillcolor,
                   strokeWeight:3,
@@ -840,8 +835,8 @@ GeometryControls.prototype.handleKmlDataResponse_ = function(data, responseCode)
                 type:"poly",
                 coordinates:points,
                 title:name,
-                start:desc,
-								end: desc,
+                start:start,
+								end: end,
                 style: {
                   strokeColor:style.fillcolor,
                   strokeWeight:3,
@@ -867,8 +862,8 @@ GeometryControls.prototype.handleKmlDataResponse_ = function(data, responseCode)
             type:"point",
             coordinates:[{lat:parseFloat(bits[1]),lng:parseFloat(bits[0])}],
             title:name,
-            start:desc,
-						end: desc,
+            start:start,
+						end: end,
             style:{
               icon:style
             }

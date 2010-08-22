@@ -2,7 +2,6 @@
 var geometryControls; //for testing, give firebug access
 var markerControl; //ditto
 var polygonControl;
-var polylineControl;
 
 $(function(){
 	GEvent.addDomListener(window,"load",function(){

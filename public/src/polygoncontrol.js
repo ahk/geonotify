@@ -92,7 +92,7 @@ function PolygonControl(opt_opts) {
       tooltip:'Draw a region'
     },
     position:{
-      controlPosition:[245,3]
+      controlPosition:[75,3]
     },
     tooltip:{
       anchor:[-30,-8],
@@ -305,7 +305,7 @@ PolygonControl.prototype.assembleInfoWindowHtml = function(dataObject){
 
 /**
  * Creates (and recreates) polygons
- * @param {Array} coords An array of GLatLngs 
+ * @param {Array} coords An array of GLatLngs
  * @param {String} html The html content for the infowindow
  * @param {Number} opt_currentIndex Override automatic index increment for recreating an existing marker
  * @param {Number} opt_currentIcon Override current icon for recreating existing marker
@@ -553,9 +553,14 @@ PolygonControl.prototype.hoverTooltip = function(){
  */
 PolygonControl.prototype.loadPolygons = function(record){
   var me = this;
-  var polygon = me.createPolygon(record.coordinates,me.infoWindowHtml,false,record.style);
+  var coords = []
+  for(var i=0;i<record.geometry.coordinates.length;i++){
+    coords[i] = new GLatLng(record.geometry.coordinates[i][1], record.geometry.coordinates[i][0]);
+  }
+  var polygon = me.createPolygon(coords,me.infoWindowHtml,false,record.style);
   me.storage[polygon.index].title = [record.title,record.title];
-  me.storage[polygon.index].description = [record.description,record.description];
+  me.storage[polygon.index].starts = [record.starts,record.starts];
+  me.storage[polygon.index].ends = [record.ends,record.ends];
   me.zuper.map.addOverlay(polygon); 
   return polygon;
 };
