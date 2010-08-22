@@ -1,2 +1,2 @@
 rails -v 2.3.8
-searchlogic -v 2.4.23
+authlogic -v 2.1.6
