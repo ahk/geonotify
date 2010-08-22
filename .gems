@@ -1,3 +1,4 @@
-rails     -v 2.3.8
-authlogic -v 2.1.6
-haml      -v 3.0.17
+rails       -v 2.3.8
+authlogic   -v 2.1.6
+haml        -v 3.0.17
+formtastic  -v 1.0.0
