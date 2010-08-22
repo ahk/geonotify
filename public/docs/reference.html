@@ -1,0 +1,923 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>GeometryControls v0.3 Reference</title>
+    <link rel="stylesheet" type="text/css" href="http://code.google.com/css/codesite.css"></link>
+    <link rel="stylesheet" type="text/css" href="../../util/docs/template/local_extensions.css"></link>
+  </head>
+  <body>
+    <h1>GeometryControls</h1>
+    <p>
+GeometryControls is a supervisor class used by geometry digiziting controls, like those in Google's MyMaps.
+Work is delegated from instances of actual controls (@see MarkerControl, etc) to convenient methods that all control's require,
+like constructing InfoWindows, applying styles, saving data, and managing states between the controls. This class can also be used to 
+create instances of editable geometries from KML (via EGeoXml) or JSON.
+<br /><br />
+Usage: I attempted to make these controls very flexible, given the wide range of possible uses. To that end, the html content
+is stored in an html template file (@see #parseMicroTemplate) and contains dynamic elements that can be populated at runtime. In addition,
+I also used a very small AOP framework to show how existing functions can be customized, without the need to change the base code, or even
+delve into traditional inheritance (@see #aop).</p>
+    
+      <h2><a name="GeometryControls"></a>class GeometryControls</h2>
+      <p></p>
+      
+        <h3>Constructor</h3>
+        <table summary="class GeometryControls - Constructor" width="90%">
+          
+          <tbody>
+            <tr>
+              <th>Constructor</th>
+              
+              <th>Description</th>
+            </tr>
+            
+              <tr class="odd">
+                <td><code>GeometryControls(<span class="type" title="type:  Object">opt_opts</span>, <span class="type" title="type:  Object">opt_opts.controlPositionFloat</span>, <span class="type" title="type:  Object">opt_opts.controlPosition</span>, <span class="type" title="type:  String">opt_opts.buttonWidth</span>, <span class="type" title="type:  String">opt_opts.buttonHeight</span>, <span class="type" title="type:  String">opt_opts.buttonBorder</span>, <span class="type" title="type:  String">opt_opts.infoWindowHtmlURL</span>, <span class="type" title="type:  Object">opt_opts.stylesheets</span>, <span class="type" title="type:  Boolean">opt_opts.autoSave</span>, <span class="type" title="type:  String">opt_opts.cssId</span>, <span class="type" title="type:  Boolean">opt_opts.debug</span>)</code></td>
+                
+                <td>Creates the parent class for Geometry Controls</td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3>Methods</h3>
+        <table summary="class GeometryControls - Methods" width="90%">
+          
+          <tbody>
+            <tr>
+              <th>Methods</th>
+              
+                
+                  <th>Return&nbsp;Value</th>
+                
+              
+              <th>Description</th>
+            </tr>
+            
+              <tr class="odd">
+                <td><code>addAutoSaveAspect()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Add aspects that listen for "Ok" button clicks, triggering an upload to the db
+TODO - need explicit extra variable (autoSaveListener) for passing references?</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>addControl(<span class="type" title="type:  Object">control</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Adds a geometry control to this.controls, which are then added to the map
+Note: Would like to use the constructor name of control, so that name is not hard-coded
+but inheriting from GControl overrides the original constructor name :(</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>bindInfoWindow(<span class="type" title="type:  ">geomInfo</span>, <span class="type" title="type:  Number">geomInfo.index</span>, <span class="type" title="type:  Array">geomInfo.storage</span>, <span class="type" title="type:  Function">geomInfo.geometryStyleFunc</span>, <span class="type" title="type:  Function">geomInfo.undoStyling</span>, <span class="type" title="type:  Function">geomInfo.commitStyling</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Binds elements shared between all geometry tools
+Assumes common id naming between different geometry infowindows 
+Rich text editor might need to be some kind of pre-packaged javascript library</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>convertFromMetric(<span class="type" title="type:  Integer">distance1</span>, <span class="type" title="type:  Integer">opt_distance2</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Returns the distance of one of the sum of two distances in feet/miles with appropriate units</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>createButton(<span class="type" title="type:  Object">required_opts</span>, <span class="type" title="type:  String">required_opts.controlName</span>, <span class="type" title="type:  Object">required_opts.button_opts</span>, <span class="type" title="type:  String">button_opts.img_up_url</span>, <span class="type" title="type:  String">button_opts.img_down_url</span>, <span class="type" title="type:  String">button_opts.tooltip</span>, <span class="type" title="type:  Function">required_opts.startDigitizing</span>, <span class="type" title="type:  Function">required_opts.stopDigitizing</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Creates a button, and attaches listeners</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>debug(<span class="type" title="type:  Object">msg</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Wrapper function for GLog.write, allows debugging to be turned on/off globally
+Note: debugging mode is set at instantiation, so that production mode does not incur processing</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>getAbsolutePosition(<span class="type" title="type:  DOM Object">el</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Utility function for getting the absolute position of an element</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>getDefaultPosition(<span class="type" title="type:  Object">opt_opts</span>, <span class="type" title="type:  Object">opt_opts.controlPositionFloat</span>, <span class="type" title="type:  Object">opt_opts.controlPosition</span>)</code></td>
+                
+                  
+                    <td><code>GControlPosition</code></td>
+                  
+                
+                <td>Required by GMaps API for controls.</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>initialize(<span class="type" title="type:  GMap2">map</span>)</code></td>
+                
+                  
+                    <td><code>DOM Object</code></td>
+                  
+                
+                <td>Is called by GMap2's addOverlay method. Creates the button and appends to the map div.
+Since this is called after being added to map, we can access #addControl to add geometry controls and 
+make them available here.</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>loadData(<span class="type" title="type:  Object">opts</span>, <span class="type" title="type:  String">type</span>, <span class="type" title="type:  String">url</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Data Services</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>parseMicroTemplate(<span class="type" title="type:  String">str</span>, <span class="type" title="type:  Object">data</span>, <span class="type" title="type:  Object">node</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Loads html fragments from a .html template file, and inserts dynamically added values. 
+Note: Public function, called from child controls.
+Simple JavaScript Templating
+John Resig - http://ejohn.org/ - MIT Licensed</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>parseMicroTmpl(<span class="type" title="type:  ">J</span>, <span class="type" title="type:  ">I</span>, <span class="type" title="type:  ">H</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td></td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>saveAllData()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Loops through all stored geometries by accessing variable for storage
+In all of the the controls that have been added.</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>saveData(<span class="type" title="type:  Object">opts</span>, <span class="type" title="type:  Object">geomInfo</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Post data for storage to a db. Options to send all information or just one object?</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>serialize(<span class="type" title="type:  Object">obj</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Serialize JSON to parameters</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>setLocalTimeout(<span class="type" title="type:  Object">milliseconds</span>, <span class="type" title="type:  Object">func</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Utility function for executing functions not in global scope</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>showColorPicker(<span class="type" title="type:  ">opts</span>, <span class="type" title="type:  DOM Object">opts.target</span>, <span class="type" title="type:  Function">opts.</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Create, then store and show/hide an event-bound color picker</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>toggleButtons(<span class="type" title="type:  String">button_name</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Turns on selected digitizer button, turns off the other buttons
+At the moment, name reference is passed rather than object, is this necessary?</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>tooltipFactory(<span class="type" title="type:  Object">tooltip_opts</span>)</code></td>
+                
+                  
+                    <td><code>Object</code></td>
+                  
+                
+                <td>Returns a custom tooltip function. 
+Takes care of one time setup variables and functions and stores then in closure.</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>zoomToBounds(<span class="type" title="type:  Object">record</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Set map center and zoom to a GBounds</td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+    
+      <h2><a name="GeometryControls#beans.Geometry"></a>class Geometry</h2>
+      <p>Geometry 
+A bean for storing geometry data in arrays. 
+Titles/descriptions are stored as [][0,1] with 0,1 entries representing current(0)/previous(1) values
+TODO change title/desc storage to use hash, rather than array</p>
+      
+    
+      <h2><a name="GeometryControls#beans.Style"></a>class Style</h2>
+      <p>Style
+A bean for storing style data in arrays</p>
+      
+    
+      <h2><a name="MarkerControl"></a>class MarkerControl</h2>
+      <p></p>
+      
+        <h3>Constructor</h3>
+        <table summary="class MarkerControl - Constructor" width="90%">
+          
+          <tbody>
+            <tr>
+              <th>Constructor</th>
+              
+              <th>Description</th>
+            </tr>
+            
+              <tr class="odd">
+                <td><code>MarkerControl(<span class="type" title="type:  Object">opt_opts</span>, <span class="type" title="type:  Object">button_opts</span>, <span class="type" title="type:  String">opt_opts.img_up_url</span>, <span class="type" title="type:  String">opt_opts.img_down_url</span>, <span class="type" title="type:  String">opt_opts.name</span>, <span class="type" title="type:  String">opt_opts.tooltip</span>, <span class="type" title="type:  Object">opt_opts.position</span>, <span class="type" title="type:  Array">position.controlPosition</span>, <span class="type" title="type:  Object">opt_opts.tooltip</span>, <span class="type" title="type:  Array">tooltip.anchor</span>, <span class="type" title="type:  String">tooltip.cursor_on</span>, <span class="type" title="type:  String">tooltip.cursor_off</span>, <span class="type" title="type:  String">tooltip.titles</span>, <span class="type" title="type:  Object">newGeometryOptions</span>, <span class="type" title="type:  GIcon">newGeometryOptions.icon</span>, <span class="type" title="type:  Boolean">newGeometryOptions.dragCrossMove</span>, <span class="type" title="type:  String">newGeometryOptions.title</span>, <span class="type" title="type:  Boolean">newGeometryOptions.clickable</span>, <span class="type" title="type:  Boolean">newGeometryOptions.draggable</span>, <span class="type" title="type:  Boolean">newGeometryOptions.bouncy</span>, <span class="type" title="type:  Integer">newGeometryOptions.bounceGravity</span>, <span class="type" title="type:  Boolean">newGeometryOptions.autoPan</span>, <span class="type" title="type:  Boolean">multiEdit</span>, <span class="type" title="type:  Object">htmlTemplateParams</span>, <span class="type" title="type:  String">cssId</span>, <span class="type" title="type:  Function">optionalGeometryListeners</span>, <span class="type" title="type:  Boolean">autoSave</span>)</code></td>
+                
+                <td>Markercontrol</td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3>Methods</h3>
+        <table summary="class MarkerControl - Methods" width="90%">
+          
+          <tbody>
+            <tr>
+              <th>Methods</th>
+              
+                
+                  <th>Return&nbsp;Value</th>
+                
+              
+              <th>Description</th>
+            </tr>
+            
+              <tr class="odd">
+                <td><code>addGeometryListeners(<span class="type" title="type:  GMarker">marker</span>, <span class="type" title="type:  String">html</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Add's listeners to a geometry. Separated from geometry creation function for easier extension and overriding</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>assembleInfoWindowHtml(<span class="type" title="type:  ">dataObject</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Assembles html fragments from geometry html template file at initialization</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>bindInfoWindow(<span class="type" title="type:  GMarker">marker</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>BindInfoWindow - implement any specific behaviors, then invoke super bindIndoWindow for behaviors in infoWindow</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>bindStyleInfoWindow(<span class="type" title="type:  Integer">index</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Binds Info Window for Marker Styling (change icons, etc)</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>changeStyling(<span class="type" title="type:  Integer">index</span>, <span class="type" title="type:  GIcon">icon</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Function that changes style of marker</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>checkIconStatus(<span class="type" title="type:  Integer">x</span>, <span class="type" title="type:  Integer">y</span>)</code></td>
+                
+                  
+                    <td><code>GIcon</code></td>
+                  
+                
+                <td>Check if named icon from html(data) download exists. 
+If not create a new icon, else change its image
+TODO support for used created icons</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>createIcon(<span class="type" title="type:  Object">opts</span>, <span class="type" title="type:  String">name</span>, <span class="type" title="type:  Array">iconSize</span>, <span class="type" title="type:  String">shadow</span>, <span class="type" title="type:  Array">shadowSize</span>, <span class="type" title="type:  Array">anchor</span>, <span class="type" title="type:  Array">wAnchor</span>, <span class="type" title="type:  Array">images</span>, <span class="type" title="type:  String">imageRef</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>CreateIcon - an Icon factory method for creating new icons, which are automatically stored in #MarkerControl.icons object</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>createMarker(<span class="type" title="type:  GLatLng">latlng</span>, <span class="type" title="type:  String">html</span>, <span class="type" title="type:  Number">opt_currentIndex</span>, <span class="type" title="type:  GIcon">opt_currentIcon</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Creates (and recreates) markers</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>getDefaultPosition()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Expected by GControl</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>initialize(<span class="type" title="type:  GMap2">map</span>)</code></td>
+                
+                  
+                    <td><code>DOM Object</code></td>
+                  
+                
+                <td>Extend for marker specific implementation</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>loadMarkers(<span class="type" title="type:  record">-</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>LoadMarkers - loads markers from kml or json, tries to resolve style to existing icon</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>markerTooltip(<span class="type" title="type:  Object">index</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>TODO, a mouseover/out implementation for better tooltips (popup instantly)</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>runInitFunctions()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Remember, all init functions get executed from #initialize because zuper isn't defined
+until the control is added to zuper, with GeometryControls#addControl, and that's 
+when initialize is called automatically by GControl</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>startDigitizing()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Starts digitizing process, turns on tooltip, calls function for geometry creation</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>stopDigitizing(<span class="type" title="type:  Boolean">toggleButtons</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Ends digitizing of a geometry, removes editing listeners, turns off tooltip, and removes geometry overlay
+TODO candidate for moving entirely to zuper</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>tooltip()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Creates instance of tooltips for MarkerControl, which replaces the function below</td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+    
+      <h2><a name="PolygonControl"></a>class PolygonControl</h2>
+      <p></p>
+      
+        <h3>Constructor</h3>
+        <table summary="class PolygonControl - Constructor" width="90%">
+          
+          <tbody>
+            <tr>
+              <th>Constructor</th>
+              
+              <th>Description</th>
+            </tr>
+            
+              <tr class="odd">
+                <td><code>PolygonControl(<span class="type" title="type:  Object">opt_opts</span>, <span class="type" title="type:  Object">button_opts</span>, <span class="type" title="type:  String">opt_opts.img_up_url</span>, <span class="type" title="type:  String">opt_opts.img_down_url</span>, <span class="type" title="type:  String">opt_opts.name</span>, <span class="type" title="type:  String">opt_opts.tooltip</span>, <span class="type" title="type:  Object">opt_opts.position</span>, <span class="type" title="type:  Array">position.controlPosition</span>, <span class="type" title="type:  Object">opt_opts.tooltip</span>, <span class="type" title="type:  Array">tooltip.anchor</span>, <span class="type" title="type:  String">tooltip.cursor_on</span>, <span class="type" title="type:  String">tooltip.cursor_off</span>, <span class="type" title="type:  Object">titles</span>, <span class="type" title="type:  String">titles.img_up_url</span>, <span class="type" title="type:  String">titles.img_down_url</span>, <span class="type" title="type:  String">titles.tooltip</span>, <span class="type" title="type:  Function">tooltip.callback</span>, <span class="type" title="type:  Object">newGeometryOptions</span>, <span class="type" title="type:  String">newGeometryOptions.strokeColor</span>, <span class="type" title="type:  Integer">newGeometryOptions.strokeWieght</span>, <span class="type" title="type:  Float">newGeometryOptions.strokeOpacity</span>, <span class="type" title="type:  String">newGeometryOptions.fillColor</span>, <span class="type" title="type:  Float">newGeometryOptions.fillOpacity</span>, <span class="type" title="type:  Object">opts</span>, <span class="type" title="type:  Boolean">opts.clickable</span>, <span class="type" title="type:  Object">geometryListenerOpts</span>, <span class="type" title="type:  Boolean">geometryListenerOpts.mouseoverEditingEnabled</span>, <span class="type" title="type:  Boolean">geometryListenerOpts.infoWindowHtmlEnabled</span>, <span class="type" title="type:  Boolean">geometryListenerOpts.mouseoverHighlightingEnabled</span>, <span class="type" title="type:  Boolean">geometryListenerOpts.infoWindowTabsEnabled</span>, <span class="type" title="type:  Function">geometryListenerOpts.assembleInfoWindowTabs</span>, <span class="type" title="type:  Boolean">multiEdit</span>, <span class="type" title="type:  Object">htmlTemplateParams</span>, <span class="type" title="type:  String">cssId</span>, <span class="type" title="type:  Function">optionalGeometryListeners</span>, <span class="type" title="type:  Boolean">autoSave</span>)</code></td>
+                
+                <td>PolygonControl</td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3>Methods</h3>
+        <table summary="class PolygonControl - Methods" width="90%">
+          
+          <tbody>
+            <tr>
+              <th>Methods</th>
+              
+                
+                  <th>Return&nbsp;Value</th>
+                
+              
+              <th>Description</th>
+            </tr>
+            
+              <tr class="odd">
+                <td><code>addGeometryListeners(<span class="type" title="type:  GPolygon">polygon</span>, <span class="type" title="type:  String">html</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Add's listeners to a geometry. Separated from geometry creation function for easier extension and overriding</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>assembleInfoWindowHtml(<span class="type" title="type:  Object">dataObject</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Assembles html fragments for infowWindow from html template file at initialization</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>bindInfoWindow(<span class="type" title="type:  GPolygon">polygon</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>BindInfoWindow - implement any specific behaviors, then invoke super bindIndoWindow for behaviors in infoWindow</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>bindStyleInfoWindow(<span class="type" title="type:  Integer">index</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Binds Info Window for Polygon Styling (change colors, widths, opacity, etc)</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>changeStyling(<span class="type" title="type:  Integer">index</span>, <span class="type" title="type:  Object">styles</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Function that changes styles of the poly that are not set immediately (like colors).</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>createPolygon(<span class="type" title="type:  Array">coords</span>, <span class="type" title="type:  String">html</span>, <span class="type" title="type:  Number">opt_currentIndex</span>, <span class="type" title="type:  Number">opt_currentIcon</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Creates (and recreates) polygons</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>extendGPolygon()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Convenience add getter/setters for objects that need translation between stored and displayed value
+And do basic input validation (and revert to stored values if values are invalid)
+Note: if these methods are eventually added to the api, then these methods will need to be updated
+to use call() to access super method.</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>getDefaultPosition()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Expected by GControl, sets control position</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>hoverTooltip(<span class="type" title="type:  Object">index</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>TODO, a mouseover/out implementation for better tooltips (on the polygons)</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>initialize(<span class="type" title="type:  GMap2">map</span>)</code></td>
+                
+                  
+                    <td><code>DOM Object</code></td>
+                  
+                
+                <td>Extend for polygon specific implementation</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>loadPolygons(<span class="type" title="type:  Object">record</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Loads polygons from json</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>newGPolygon(<span class="type" title="type:  Array">coords</span>, <span class="type" title="type:  Object">opts</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Convenience method to be able to pass in options as an object</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>runInitFunctions()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Remember, all init functions get executed from #initialize because zuper isn't defined
+until the control is added to zuper, with GeometryControls#addControl, and that's 
+when initialize is called automatically by GControl</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>startDigitizing()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Starts digitizing process, turns on tooltip, calls function for geometry creation
+TODO - break up some of the functions?</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>stopDigitizing(<span class="type" title="type:  Boolean">toggleButtons</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Ends digitizing of a poly, removes editing listeners, turns off tooltip, and removes poly overlay</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>tooltip()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Creates instance of tooltips for PolygonControl, which replaces the function below</td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+    
+      <h2><a name="PolylineControl"></a>class PolylineControl</h2>
+      <p></p>
+      
+        <h3>Constructor</h3>
+        <table summary="class PolylineControl - Constructor" width="90%">
+          
+          <tbody>
+            <tr>
+              <th>Constructor</th>
+              
+              <th>Description</th>
+            </tr>
+            
+              <tr class="odd">
+                <td><code>PolylineControl(<span class="type" title="type:  Object">opt_opts</span>, <span class="type" title="type:  Object">button_opts</span>, <span class="type" title="type:  String">opt_opts.img_up_url</span>, <span class="type" title="type:  String">opt_opts.img_down_url</span>, <span class="type" title="type:  String">opt_opts.name</span>, <span class="type" title="type:  String">opt_opts.tooltip</span>, <span class="type" title="type:  Object">opt_opts.position</span>, <span class="type" title="type:  Array">position.controlPosition</span>, <span class="type" title="type:  Object">opt_opts.tooltip</span>, <span class="type" title="type:  Array">tooltip.anchor</span>, <span class="type" title="type:  String">tooltip.cursor_on</span>, <span class="type" title="type:  String">tooltip.cursor_off</span>, <span class="type" title="type:  Object">titles</span>, <span class="type" title="type:  String">titles.img_up_url</span>, <span class="type" title="type:  String">titles.img_down_url</span>, <span class="type" title="type:  String">titles.tooltip</span>, <span class="type" title="type:  Function">tooltip.callback</span>, <span class="type" title="type:  Object">newGeometryOptions</span>, <span class="type" title="type:  String">newGeometryOptions.strokeColor</span>, <span class="type" title="type:  Integer">newGeometryOptions.strokeWieght</span>, <span class="type" title="type:  Float">newGeometryOptions.strokeOpacity</span>, <span class="type" title="type:  Object">opts</span>, <span class="type" title="type:  Boolean">opts.clickable</span>, <span class="type" title="type:  Boolean">opts.geodesic</span>, <span class="type" title="type:  Boolean">multiEdit</span>, <span class="type" title="type:  Object">htmlTemplateParams</span>, <span class="type" title="type:  String">cssId</span>, <span class="type" title="type:  Function">optionalGeometryListeners</span>, <span class="type" title="type:  Boolean">autoSave</span>, <span class="type" title="type:  Boolean">executeClassExtensions</span>)</code></td>
+                
+                <td>PolylineControl</td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+        <h3>Methods</h3>
+        <table summary="class PolylineControl - Methods" width="90%">
+          
+          <tbody>
+            <tr>
+              <th>Methods</th>
+              
+                
+                  <th>Return&nbsp;Value</th>
+                
+              
+              <th>Description</th>
+            </tr>
+            
+              <tr class="odd">
+                <td><code>addGeometryListeners(<span class="type" title="type:  GPolyline">polyline</span>, <span class="type" title="type:  String">html</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Add's listeners to a geometry. Separated from geometry creation function for easier extension and overriding</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>assembleInfoWindowHtml(<span class="type" title="type:  Object">dataObject</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Assembles html fragments for infowWindow from html template file at initialization</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>bindInfoWindow(<span class="type" title="type:  GPolyline">polyline</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>BindInfoWindow - implement any specific behaviors, then invoke super bindIndoWindow for behaviors in infoWindow</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>bindStyleInfoWindow(<span class="type" title="type:  Integer">index</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Binds Info Window for Polygon Styling (change colors, widths, opacity, etc)</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>changeStyling(<span class="type" title="type:  Integer">index</span>, <span class="type" title="type:  Object">styles</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Function that changes styles of the poly that are not set immediately (like colors).</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>createPolyline(<span class="type" title="type:  Array">coords</span>, <span class="type" title="type:  String">html</span>, <span class="type" title="type:  Number">opt_currentIndex</span>, <span class="type" title="type:  Number">opt_currentIcon</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Creates (and recreates) polylines</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>extendBaseClass()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>AOP Extensions to the PolylineControl Class
+Put All Custom Behaviors here, so that you can swap in new versions of the file
+And still have your customizations intact (perhaps they will need tweaking)</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>extendGPolyline()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Convenience add getter/setters for objects that need translation between stored and displayed value
+And do basic input validation (and revert to stored values if values are invalid)
+Note: if these methods are eventually added to the api, then these methods will need to be updated
+to use call() to access super method.</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>getDefaultPosition()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Expected by GControl, sets control position</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>hoverTooltip(<span class="type" title="type:  Object">index</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>TODO, a mouseover/out implementation for better tooltips (on the polylines)</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>initialize(<span class="type" title="type:  GMap2">map</span>)</code></td>
+                
+                  
+                    <td><code>DOM Object</code></td>
+                  
+                
+                <td>Extend for polygon specific implementation</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>loadPolylines(<span class="type" title="type:  Object">record</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Loads polylines from json</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>newGPolyline(<span class="type" title="type:  Array">coords</span>, <span class="type" title="type:  Object">opts</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Convenience method to be able to pass in options as an object</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>runInitFunctions()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Remember, all init functions get executed from #initialize because zuper isn't defined
+until the control is added to zuper, with GeometryControls#addControl, and that's 
+when initialize is called automatically by GControl</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>startDigitizing()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Starts digitizing process, turns on tooltip, calls function for geometry creation</td>
+              </tr>
+            
+              <tr class="even">
+                <td><code>stopDigitizing(<span class="type" title="type:  Boolean">toggleButtons</span>)</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Ends digitizing of a poly, removes editing listeners, turns off tooltip, and removes poly overlay
+TODO candidate for moving entirely to zuper</td>
+              </tr>
+            
+              <tr class="odd">
+                <td><code>tooltip()</code></td>
+                
+                  
+                    <td><code>None</code></td>
+                  
+                
+                <td>Creates instance of tooltips for PolylineControl, which replaces the function below</td>
+              </tr>
+            
+          </tbody>
+        </table>
+      
+    
+    <!-- <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      _uacct = "UA-964209-4";
+      urchinTracker();
+    </script> -->
+  </body>
+</html>

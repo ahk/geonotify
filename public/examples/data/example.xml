@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Document>
+  <name>KML Example file</name>
+  <description>Simple markers</description>
+
+  <Style id="downArrow">
+    <IconStyle>
+      <Icon>
+				<href>http://maps.google.com/mapfiles/kml/pal4/icon28.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  
+  <Style id="blueDot">
+    <IconStyle>
+      <Icon>
+				<href>http://maps.google.com/mapfiles/ms/micons/blue-dot.png</href>
+      </Icon>
+    </IconStyle>
+  </Style>
+  
+  <Style id="examplePolyStyle">
+    <PolyStyle>
+      <color>aaff00cc</color>
+      <colorMode>normal</colorMode>
+      <fill>1</fill>                     
+      <outline>1</outline>  
+    </PolyStyle>
+  </Style>
+
+
+  <Placemark>
+    <name>Marker 1</name>
+    <styleUrl>#downArrow</styleUrl>
+    <description>I've been loaded from kml!</description>
+    <Point>
+      <coordinates>-122.1,37.4,0</coordinates>
+    </Point>
+  </Placemark>
+
+  <Placemark>
+    <styleUrl>#blueDot</styleUrl>
+    <name>Marker 2</name>
+    <description>I as well</description>
+    <Point>
+      <coordinates>-122.0,37.4,0</coordinates>
+    </Point>
+  </Placemark>
+  
+  <!-- Innerboundaries not yet supported -->
+  <Placemark>
+    <styleUrl>#examplePolyStyle</styleUrl>
+    <name>hollow box</name>
+    <description>I'm from kml</description>
+    <Polygon>
+      <extrude>1</extrude>
+      <altitudeMode>relativeToGround</altitudeMode>
+      <outerBoundaryIs>
+        <LinearRing>
+          <coordinates>
+            -122.086565,37.423425,30 
+            -121.586565,37.423425,30 
+            -121.586565,37.023425,30 
+            -122.086565,37.023425,30 
+            -122.086565,37.423425,30 
+          </coordinates>
+        </LinearRing>
+      </outerBoundaryIs>
+      <innerBoundaryIs>
+        <LinearRing>
+          <coordinates>
+            -122.366212593918,37.81897719083808,30 
+            -122.3654241733188,37.81929450992014,30 
+            -122.3657048517827,37.81973175302663,30 
+            -122.3664882465854,37.81940249291773,30 
+            -122.366212593918,37.81897719083808,30 
+          </coordinates>
+        </LinearRing>
+      </innerBoundaryIs>
+    </Polygon>
+  </Placemark>  
+  
+  <Placemark>
+    <styleUrl>#examplePolyStyle</styleUrl>
+    <name>purple line</name>
+    <description>I'm a line from kml</description>
+    <LineString>
+      <extrude>1</extrude>
+      <tessellate>1</tessellate>
+      <altitudeMode>absolute</altitudeMode>
+      <coordinates> -121.586565,37.523425,2357
+        -121.886565,37.523425,2357
+        -122.086565,37.923425,2357
+        -122.086565,37.523425,2357
+      </coordinates>
+     </LineString>
+  </Placemark>   
+
+</Document>
+</kml>

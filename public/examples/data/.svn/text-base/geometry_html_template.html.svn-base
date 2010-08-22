@@ -1,0 +1,466 @@
+<!--
+/**
+* GeometryControl Html Template
+*/-->
+<scripts>
+
+	<!--
+	/**
+	* Basic template for initial infowindow view
+	*/-->
+	<script id="template_1" evalRequired="false" type="text/html" >
+  	<![CDATA[
+		<div style="position:relative; left:5px; top:0px; width:279px; height:224px; z-index:10;">
+		<div>
+			<div>
+				<div class="msedit">
+					<table class="iwspan">  
+						<tbody>
+							<tr>
+								<td>
+									<table class="inputField">
+										<tbody>
+											<tr>
+												<td class="label">Title</td>
+												<td>
+													<input class="title" id="emmc-geom-title" type="text" maxlength="250" dir="ltr"/>
+												</td>
+												<td>
+													<div id="msiwsi" class="icon">
+														<%=geometry_style_link%>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<table class="inputField">
+										<tbody>
+											<tr>
+												<td class="label">Description</td>
+												<td class="tabs">
+													<table>
+														<tbody>
+															<tr>
+																<td>
+																	<span class="stab">Plain text</span>
+																</td>
+																<!-- 
+																	<td class="stab"> - </td>
+																	<td>
+																		<span class="lk">Rich text</span>
+																	</td>
+																	<td class="stab"> - </td>
+																	<td>
+																	<span class="lk">Edit HTML</span>
+																	</td>
+																-->
+															</tr>
+														</tbody>
+													</table>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div>
+						<div id="rtfield" class="textField description" style="display:none;"></div>
+						<textarea class="textField description" id="emmc-geom-description" dir="ltr"></textarea>
+						<div style="font-size: 1%; width: 264px; height: 1px;"></div>
+					</div>
+					<div class="msfeatureupdater msfeatureupdaterbot" style="">
+						<!-- Last Updated by
+						<a href="add a variable">put some data in here</a>
+						1 hours ago
+						-->
+					</div>
+					<table>
+						<tbody>
+							<tr>
+								<td class="navLeft">
+									<span class="lk" id="emmc-geom-delete">Delete</span>
+								</td>
+								<td class="navRight">
+									<button id="emmc-geom-cancel">Cancel</button>
+								</td>
+								<td class="navRight">
+									<button id="emmc-geom-ok">OK</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+		]]>
+	</script>
+	
+	<!--
+	/**
+	* Basic template for infowindow - parameters
+	*/-->
+	<script id="geometry_style_link_params" evalRequired="true" type="text/html" >
+		<![CDATA[
+		[{
+			marker:'<img style="border: 0px none ; margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none;" src="http://maps.google.com/intl/en_us/mapfiles/ms/micons/blue-dot.png"/>',
+			polyline:'<div style="width: 32px; height: 32px;"><div class="noprint" style="background-color: rgb(140, 140, 255); width: 32px; height: 32px;"><img style="border: 0px none ; margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none;" src="http://maps.google.com/intl/en_us/mapfiles/ms/line.png"/></div><div class="noscreen" style="width: 32px; height: 32px;"><img style="border: 0px none ; margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none;" src="http://maps.google.com/intl/en_us/mapfiles/ms/gray_line.gif"/></div></div></div>',
+			polygon:'<div class="poly" style="border-color:#BFBFBF; background-color:#0000FF;"/>'
+		}]
+		]]>
+	</script>
+	
+	<!--
+	/**
+	* Marker Style InfoWindow template
+	*/-->
+	<script id="marker_2" evalRequired="false" type="text/html" >
+  <![CDATA[
+							
+			<div class="msstyle" id="emmc-geom-style" style="display: none; position: absolute; left: 0px; top: 0px;">
+				<div style="height: 224px;">
+					<div class="msback">
+						<a id="emmc-geom-style-back" href="javascript:void(0)">&lt;&lt; Back</a>
+					</div>
+					<div class="msbbgap"/>
+					<table class="tabs">
+						<tbody>
+							<tr>
+								<td>
+									<span class="stab">Default icons</span>
+								</td>
+								<!-- 
+									<td class="stab"> - </td>
+									<td>
+									<span class="lk">My icons</span>
+									</td>
+									<td class="tabRight">
+									<a id="msimal" href="javascript:void(0)">Add an icon</a>
+									</td>
+								-->
+								<td class="pad"/>
+							</tr>
+						</tbody>
+					</table>
+					<div class="msim" style="display: none;">
+						<div class="msicons">
+							<table>
+								<tbody>
+									<tr/>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="msim" id="msim-icons" style="height:200px!important;">
+						<div class="msicons">
+							<table>
+								<tbody>
+									<tr/>
+									<tr>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: 0px 0px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -32px 0px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -64px 0px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -96px 0px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -128px 0px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -160px 0px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -192px 0px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: 0px -32px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -32px -32px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -64px -32px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -96px -32px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -128px -32px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -160px -32px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -192px -32px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: 0px -64px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -32px -64px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -64px -64px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -96px -64px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -128px -64px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -160px -64px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -192px -64px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: 0px -96px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -32px -96px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -64px -96px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -96px -96px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -128px -96px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -160px -96px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+										<td>
+										<img style="border: 2px solid rgb(255, 255, 255); margin: 0px; padding: 0px; width: 32px; height: 32px; -moz-user-select: none; background-position: -192px -96px; background-image: url(images/iconm.png); vertical-align: middle;" src="images/cleardot.gif"/>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>	
+			<!-- end of alt view -->
+			</div><!-- what are these for?? -->
+			</div>
+			</div>
+
+		]]>
+	</script>
+	
+	<!--
+	/**
+	* Polygon Style InfoWindow template
+	*/-->
+	<script id="polygon_2" evalRequired="false" type="text/html" >
+  <![CDATA[
+		<div class="msstyle" id="emmc-geom-style" style="position: absolute; left: 0px; top: 0px; display:none;">
+			<table class="msstyle" style="height: 224px;">
+				<tbody>
+					<tr>
+						<td style="vertical-align: top; cursor: pointer;">
+							<div class="msback">
+								<a id="emmc-geom-style-back" href="javascript:void(0)">&lt;&lt; Back</a>
+							</div>
+							<div class="msbbgap"></div>
+							<table class="msline">
+								<tbody>
+									<tr>
+										<td colspan="2">
+											<b class="title">Edit shape style</b>
+										</td>
+									</tr>
+									<tr>
+										<td class="label">Line color</td>
+										<td>
+											<div class="colorbox" id="emmc-geom-line-color" style="background-color: rgb(0, 102, 0);"></div>
+										</td>
+									</tr>
+									<tr>
+										<td class="label">Line width (pixels)</td>
+										<td>
+											<input class="numberfield" id="emmc-geom-line-width" type="text" size="3"/>
+										</td>
+									</tr>
+									<tr>
+										<td class="label" style="cursor: pointer;">Line opacity</td>
+										<td>
+											<input class="numberfield" id="emmc-geom-line-opacity" type="text" size="3"/>
+										</td>
+									</tr>
+									<tr>
+										<td class="label">Fill color</td>
+										<td>
+											<div class="colorbox" id="emmc-geom-fill-color" style="background-color: rgb(255, 204, 204);"></div>
+										</td>
+									</tr>
+									<tr>
+										<td class="label" style="cursor: pointer;">Fill opacity</td>
+										<td style="cursor: url(/intl/en_us/mapfiles/openhand.cur), default;">
+											<input class="numberfield" id="emmc-geom-fill-opacity" type="text" size="3" style="cursor: url(/intl/en_us/mapfiles/openhand.cur), default;"/>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table>
+								<tbody>
+									<tr>
+										<td class="navLeft" style="cursor: url(/intl/en_us/mapfiles/openhand.cur), default;"/>
+										<td class="navRight">
+											<button id="emmc-msls-ok">OK</button>
+										</td>
+									</tr>
+								</tbody>
+						</table>
+					</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		]]>
+	</script>
+	
+	<!--
+	/**
+	* Polyline Style InfoWindow template
+	*/-->
+	<script id="polyline_2" evalRequired="false" type="text/html" >
+  <![CDATA[
+		<div class="msstyle" id="emmc-geom-style" style="position: absolute; left: 0px; top: 0px; display:none;">
+			<table class="msstyle" style="height: 224px;">
+				<tbody>
+					<tr>
+						<td style="vertical-align: top; cursor: pointer;">
+							<div class="msback">
+								<a id="emmc-geom-style-back" href="javascript:void(0)">&lt;&lt; Back</a>
+							</div>
+							<div class="msbbgap"></div>
+							<table class="msline">
+								<tbody>
+									<tr>
+										<td colspan="2">
+											<b class="title">Edit shape style</b>
+										</td>
+									</tr>
+									<tr>
+										<td class="label">Line color</td>
+										<td>
+											<div class="colorbox" id="emmc-geom-line-color" style="background-color: rgb(0, 102, 0);"></div>
+										</td>
+									</tr>
+									<tr>
+										<td class="label">Line width (pixels)</td>
+										<td>
+											<input class="numberfield" id="emmc-geom-line-width" type="text" size="3"/>
+										</td>
+									</tr>
+									<tr>
+										<td class="label" style="cursor: pointer;">Line opacity</td>
+										<td>
+											<input class="numberfield" id="emmc-geom-line-opacity" type="text" size="3"/>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table>
+								<tbody>
+									<tr>
+										<td class="navLeft" style="cursor: url(/intl/en_us/mapfiles/openhand.cur), default;"/>
+										<td class="navRight">
+											<button id="emmc-msls-ok">OK</button>
+										</td>
+									</tr>
+								</tbody>
+						</table>
+					</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		]]>
+	</script>
+	
+	<!--
+	/**
+	* Marker Icon Array
+	*/-->
+	<script id="markerIcons" evalRequired="true" type="text/html" >
+  	<![CDATA[		
+		
+		[{name:"dot",iconSize:[32,32],shadow:"http://www.google.com/intl/en_us/mapfiles/ms/micons/msmarker.shadow.png",shadowSize:[59,32],anchor:[16,32],wAnchor:[16,16],imageUrl:"http://maps.google.com/mapfiles/ms/micons/",images:["blue-dot.png","red-dot.png","green-dot.png","ltblue-dot.png","yellow-dot.png","purple-dot.png","pink-dot.png"]},
+		{name:"white",iconSize:[32,32],shadow:"http://www.google.com/intl/en_us/mapfiles/ms/micons/msmarker.shadow.png",shadowSize:[59,32],anchor:[16,32],wAnchor:[16,16],imageUrl:"http://maps.google.com/mapfiles/ms/micons/",images:["blue.png","red.png","green.png","lightblue.png","yellow.png","purple.png","pink.png"]},
+		{name:"pushpin",iconSize:[32,32],shadow:"http://www.google.com/intl/en_us/mapfiles/ms/micons/pushpin_shadow.png",shadowSize:[59,32],anchor:[12,32],wAnchor:[16,16],dragCrossAnchor:[9,8],imageUrl:"http://maps.google.com/mapfiles/ms/micons/",images:["blue-pushpin.png","red-pushpin.png","grn-pushpin.png","ltblu-pushpin.png","ylw-pushpin.png","purple-pushpin.png","pink-pushpin.png"]},
+		{/*kml icons should be last. add more icons between here*/
+ 		name:"kml",iconSize:[32,32],shadow:"",shadowSize:[59,32],anchor:[16,32],wAnchor:[16,0],imageUrl:"http://maps.google.com/mapfiles/kml/",images:[]}]
+
+		]]>
+	</script>
+	
+	<!--
+	/**
+	* Color picker table colors
+	*/-->
+	<script id="colorTable" evalRequired="true" type="text/html" >
+		<![CDATA[
+		
+			["#ffffff","#cccccc","#c0c0c0","#999999","#666666","#333333","#000000","#ffcccc","#ff6666","#ff0000","#cc0000","#990000","#660000","#330000","#ffcc99","#ff9966","#ff9900","#ff6600","#cc6600","#993300","#663300","#ffff99","#ffff66","#ffcc66","#ffcc33","#cc9933","#996633","#663333","#ffffcc","#ffff33","#ffff00","#ffcc00","#999900","#666600","#333300","#99ff99","#66ff99","#33ff33","#33cc00","#009900","#006600","#003300","#99ffff","#33ffff","#66cccc","#00cccc","#339999","#336666","#003333","#ccffff","#66ffff","#33ccff","#3366ff","#3333ff","#000099","#000066","#ccccff","#9999ff","#6666cc","#6633ff","#6600cc","#333399","#330099","#ffccff","#ff99ff","#cc66cc","#cc33cc","#993399","#663366","#330033"]		
+		
+		]]>
+	</script>
+	
+	<!--
+	/**
+	* Color picker table colors
+	*/-->
+	<script id="colorTableHtml" evalRequired="false" type="text/html" >
+		<![CDATA[
+
+		<div id="emmc-menu-color" style="padding: 2px; background: rgb(187, 187, 187) none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; z-index: 10; -moz-user-select: none; position: absolute; left: 805px; top: 272px; display:none;">
+		<table cellspacing="0" cellpadding="0" unselectable="on"/>
+		<table id="emmc-color-table" cellspacing="0" cellpadding="0" style="background: rgb(187, 187, 187) none repeat scroll 0% 0%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;">
+		</table></div>
+
+		]]>
+	</script>
+	
+	<!--
+	/**
+	* Additional Content for InfoWindowTabs example
+	*/-->
+	<script id="infoWindowTabContent1" evalRequired="false" type="text/html" >
+		<![CDATA[
+
+		<div>
+			I'm in a tab :)
+		</div>
+
+		]]>
+	</script>	
+	
+
+</scripts>
+

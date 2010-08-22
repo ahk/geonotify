@@ -1,0 +1,557 @@
+/**
+ * Google Map Css - original url??
+ */
+#listmaps {
+table-layout:fixed;
+}
+.ms {
+font-size:small;
+margin-bottom:10px;
+}
+.ms .hdr {
+font-size:medium;
+font-weight:bold;
+}
+.ms .newopen {
+color:gray;
+}
+.mapinfo {
+overflow:hidden;
+width:100%;
+}
+.msowner {
+color:gray;
+font-size:small;
+}
+.mscreatedby {
+color:gray;
+}
+.mscreatedby a:link, .mscreatedby a:visited {
+color:#7777CC;
+}
+.mspublic {
+color:gray;
+}
+.msdelete {
+color:#7777CC;
+cursor:pointer;
+text-decoration:underline;
+}
+.mswelcome {
+padding-left:1.5em;
+}
+.msmenu {
+height:25px;
+}
+.msmenu .btns {
+}
+.ms textarea {
+overflow:auto;
+width:100%;
+}
+.ms .inputField {
+width:100%;
+}
+.msline {
+background-color:#FFFFFF;
+font-size:small;
+margin:1em;
+width:17em;
+}
+.msline td {
+margin-left:0px;
+text-align:left;
+}
+.msline .label, .msedit .label {
+color:#808080;
+font-size:80%;
+font-weight:bold;
+padding-right:8px;
+white-space:nowrap;
+}
+.msline .label {
+font-size:100%;
+}
+.ms .label {
+color:#808080;
+font-size:small;
+font-weight:bold;
+margin-right:10px;
+}
+.ms .description {
+font-size:small;
+}
+.msstatus {
+color:#808080;
+font-size:90%;
+}
+.msstatus td {
+font-weight:bold;
+vertical-align:baseline;
+}
+.msstatus a {
+color:#7777CC;
+}
+.msmetadata {
+overflow:hidden;
+}
+.msmetadata span {
+color:#808080;
+font-family:arial,sans-serif;
+font-size:90%;
+white-space:nowrap;
+}
+.msmetadata a {
+color:#7777CC;
+}
+.msindexstatusexplain {
+color:#808080;
+font-weight:normal;
+}
+.msfd {
+font-size:small;
+}
+.msback {
+font-size:small;
+left:-8px;
+position:absolute;
+top:-14px;
+}
+.msbbgap {
+height:12px;
+}
+.ms .res {
+margin-top:10px;
+padding-top:10px;
+width:100%;
+}
+.ms .res .name {
+font-size:small;
+}
+.ms .res .text {
+width:100%;
+}
+.ms .sbtns {
+margin-bottom:10px;
+margin-right:3px;
+}
+.ms .saveStatus {
+color:gray;
+font-size:90%;
+}
+.ms .alert {
+color:red;
+}
+.msline .colorbox {
+border:1px solid #666666;
+height:1em;
+padding:1px;
+width:3.5ex;
+}
+.msline tr {
+height:1.7em;
+}
+.msline .numberfield {
+height:1.1em; /*changed from 1em*/
+width:3.5ex;
+}
+.msMapTitle {
+width:92%;
+}
+.msiw .title, .msMapTitle .title {
+font-size:medium;
+font-weight:bold;
+}
+.msMapTitle .title, .msMapTitle .description {
+margin-right:6px;
+}
+.msMapTitle .title div, .msMapTitle .description div {
+width:100%;
+}
+.msMapTitle .title .inputField {
+font-size:100%;
+}
+.msiw .title {
+font-size:100%;
+}
+.msstyle .title {
+font-size:130%;
+font-weight:bold;
+}
+.msiw .addr, .msedit .description {
+font-size:small;
+}
+.msiw .description {
+font-size:small;
+padding-bottom:0.7em;
+}
+.msiw .photo {
+height:12.5em;
+}
+.msiw .photo img {
+height:12.5em;
+}
+.msedit {
+min-width:264px;
+padding-right:14px;
+width:16em;
+}
+.msedit .tabs, .msstyle .tabs {
+font-size:70%;
+white-space:nowrap;
+}
+.msstyle .tabs .pad {
+padding:8px;
+}
+.msedit .stab, .msstyle .stab {
+font-weight:bold;
+white-space:nowrap;
+}
+.msstyle .tabRight {
+text-align:right;
+width:100%;
+}
+.msstyle .navRight, .msedit .navRight {
+font-size:small;
+padding-left:0.2em;
+vertical-align:baseline;
+white-space:nowrap;
+}
+.msstyle .navLeft, .msedit .navLeft, .msiw .navLeft, .sbtns .navLeft {
+font-size:small;
+vertical-align:baseline;
+width:100%;
+}
+.msedit .iwspan {
+width:100%;
+}
+.msstyle .rb {
+border-spacing:2px;
+font-size:small;
+text-align:right;
+width:100%;
+}
+.msedit .icon {
+border:2px solid blue;
+height:32px;
+padding:2px;
+text-align:center;
+vertical-align:middle;
+width:32px;
+}
+.imcell {
+border:2px solid #FFFFFF;
+}
+.ms .icon {
+cursor:pointer;
+text-align:center;
+}
+.msim .cursor {
+border:4px solid #00FF00;
+}
+.msedit .inputField input {
+width:10em;
+}
+.msedit table.inputField {
+width:100%;
+}
+.msedit .textField {
+font-family:sans-serif;
+height:9.2em;
+width:100%;
+}
+.msedit #rtfield {
+height:9.2em;
+margin-bottom:0.5em;
+}
+.msstyle {
+background-color:#FFFFFF;
+height:100%;
+left:0px;
+top:0px;
+width:100%;
+}
+.icon .poly {
+border:2px solid;
+height:18px;
+margin:5px;
+width:18px;
+}
+.msicons {
+background-color:#FFFFFF;
+}
+.msim {
+height:87%;
+overflow:auto;
+padding-top:2px;
+width:100%;
+}
+.msedit .dvm {
+border-color:#E8F1FF rgb(157, 174, 205) rgb(157, 174, 205) rgb(232, 241, 255);
+border-style:solid;
+border-width:2px;
+cursor:pointer;
+padding:2px;
+position:absolute;
+z-index:2;
+}
+.msedit .tbr {
+padding-left:4px;
+white-space:nowrap;
+}
+.msedit .tbb {
+border:1px solid #FFFFFF;
+height:18px;
+margin:0pt 1px;
+padding:0pt;
+vertical-align:middle;
+width:18px;
+}
+.msedit .msdb {
+border-color:#9DAECD rgb(232, 241, 255) rgb(232, 241, 255) rgb(157, 174, 205);
+border-style:solid;
+border-width:1px;
+}
+.msedit .ob {
+background-color:#E8F1FF;
+border-color:#9DAECD rgb(232, 241, 255) rgb(232, 241, 255) rgb(157, 174, 205);
+border-style:solid;
+border-width:1px;
+}
+.msedit .hb {
+border-color:#E8F1FF rgb(157, 174, 205) rgb(157, 174, 205) rgb(232, 241, 255);
+border-style:solid;
+border-width:1px;
+}
+.msedit .iv {
+border:0pt none;
+height:0pt;
+left:0pt;
+margin:0pt;
+padding:0pt;
+position:absolute;
+right:0pt;
+width:0pt;
+}
+.msedit .ed {
+background:white none repeat scroll 0% 0%;
+border:2px inset #CCCCCC;
+overflow:auto;
+padding:5px;
+}
+.msedit .ef {
+width:100%;
+}
+.msiw .lk, .msedit .lk, .msstyle .lk {
+color:#0000CC;
+cursor:pointer;
+text-decoration:underline;
+white-space:nowrap;
+}
+.ms .lk {
+color:#0000CC;
+cursor:pointer;
+text-decoration:underline;
+}
+.msedit .tbo {
+-moz-user-select:none;
+}
+.mscoll {
+font-size:90%;
+width:45em;
+}
+.mscollpaneleft {
+width:55%;
+}
+.mscollpaneright {
+width:45%;
+}
+.mscolldivleft {
+border-right:1px solid gray;
+padding:3px 10px 10px;
+}
+.mscollbighd {
+color:black;
+font-size:120%;
+font-weight:bold;
+padding-bottom:10px;
+}
+.mscollhd {
+color:gray;
+font-size:90%;
+font-weight:bold;
+}
+.mscollmed {
+color:gray;
+font-size:85%;
+}
+.mscollsmall {
+color:gray;
+font-size:80%;
+}
+.mscollmsgbox {
+border:1px solid #AAAAAA;
+padding:10px;
+}
+.mscollmsg {
+font-size:90%;
+width:100%;
+}
+.mscollcbxmsgsmall {
+font-size:75%;
+}
+.mscollcbxmsgbig {
+font-size:85%;
+}
+.mscolladvperm {
+border-bottom:1px solid #AAAAAA;
+padding:3px 10px 10px;
+}
+.mscolllistpane {
+padding:10px;
+}
+.mscollrmlnk {
+font-size:85%;
+}
+.mscolllistdiv {
+height:10.4em;
+margin-top:10px;
+overflow:auto;
+padding-left:20px;
+}
+.mscollname {
+font-size:90%;
+}
+.mstotaldistance {
+color:gray;
+font-size:70%;
+}
+.msfeatureupdater {
+color:gray;
+font-size:70%;
+}
+.msfeatureupdater a {
+color:#7777CC;
+}
+.msfeatureupdaterbot {
+padding-bottom:3px;
+}
+.msinfotitle {
+font-size:12pt;
+font-weight:bold;
+margin-top:0.6em;
+}
+.msdistancehelp {
+color:black;
+}
+.msinfotitlegap {
+height:0.6em;
+width:1px;
+}
+.msimport {
+font-size:small;
+margin:10px;
+}
+.msimporttitle {
+display:block;
+font-size:138%;
+font-weight:bold;
+margin-bottom:0.5em;
+}
+.msimportmaxsize {
+font-size:80%;
+}
+.msimportinputcol {
+color:gray;
+}
+.msimportinput {
+direction:ltr;
+width:100%;
+}
+.msimportradiocol {
+padding-right:5px;
+vertical-align:top;
+}
+.msimportsubtext {
+color:gray;
+font-size:90%;
+}
+.msimportiframe {
+display:none;
+}
+.mssendingstatus {
+background-color:#FF6600;
+color:white;
+padding-bottom:2px;
+padding-left:4px;
+padding-right:4px;
+position:absolute;
+right:0px;
+top:0px;
+}
+.msimportmessagetitle {
+font-weight:bold;
+}
+.msimportmessagetext {
+color:gray;
+}
+.msimportmessagetitleerror {
+color:red;
+}
+.msimportmessagebuttons {
+text-align:center;
+}
+.msimporticontd {
+text-align:right;
+vertical-align:middle;
+}
+.mscolldone {
+padding-top:0.8em;
+text-align:right;
+}
+.mscollx {
+cursor:pointer;
+left:45em;
+position:absolute;
+top:10px;
+}
+.mspic {
+border:1px solid #AAAAAA;
+height:32px;
+width:32px;
+}
+.msdragplaceholder {
+background-color:#FFFFFF;
+border:2px dashed #AAAAAA;
+}
+.msdraghighlight {
+border:2px dashed #AAAAAA;
+}
+.msdragnohighlight {
+border:2px solid #0000CC;
+}
+.msdragpagediv {
+background-color:#FFFFFF;
+padding-bottom:2px;
+padding-top:2px;
+position:absolute;
+text-align:center;
+vertical-align:middle;
+}
+.msdragclone {
+opacity:0.8;
+z-index:1007;
+}
+.msdragclonetable {
+background-color:#FFFFFF;
+border:1px solid #AAAAAA;
+margin:0px 0px 0px 1px;
+padding:0px;
+}
+
+/**
+ * Custom Styles Not Included In Original Files Downloaded Directly From maps.google.com
+ */
+.noscreen {
+display:none;
+}
