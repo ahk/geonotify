@@ -1,0 +1,8 @@
+- semantic_form_for(@schedule) do |f|
+  - f.inputs do
+    = f.input :name
+    = f.input :db_name, :label => "CouchDB Name"
+    = f.input :description
+    = f.input :bounds, :label => "Bounds (GeoJSON)"
+  - f.buttons do
+    = f.commit_button

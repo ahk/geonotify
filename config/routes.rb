@@ -8,11 +8,10 @@ ActionController::Routing::Routes.draw do |map|
     map.resources :contacts, :except => [:index], :member => [:send_test_message]
     map.resources :areas, :except => [:index]
   end
+
+  map.resources :schedules
   
   map.resources :password_resets
   
   map.root :controller => "user_sessions", :action => "new"
-
-  # map.connect ':controller/:action/:id'
-  # map.connect ':controller/:action/:id.:format'
 end

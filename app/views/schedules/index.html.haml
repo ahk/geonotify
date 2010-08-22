@@ -1,0 +1,5 @@
+%h1 Available Schedules
+%ul
+  - @schedules.each do |schedule|
+    %li
+      = link_to schedule.name, schedule_path(schedule)
