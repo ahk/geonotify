@@ -1,19 +1,33 @@
 %h1
   = "GeoNotifications for #{@user.email}"
+= link_to 'Edit User', edit_account_path
+|
+= link_to 'Logout', logout_path
 
 %h2 Contact Methods
 %ul
   - @user.contacts.each do |contact|
     %li
       = contact.description
+      %br
       = " [#{link_to("Edit", edit_contact_path(contact))}] "
       = "[#{link_to("Delete", contact_path(contact), :method => :delete)}] "
       = "[#{link_to "Test", send_test_message_contact_path(contact)}]"
   %li
     = link_to "Add a contact method", new_contact_path
 
-#map_canvas{:style => "width: 1200px; height: 500px"}
-
-= link_to 'Edit', edit_account_path
-|
-= link_to 'Logout', logout_path
+%h2 Schedules
+%ul
+  - Schedule.all.each do |schedule|
+    %li
+      %strong= schedule.name
+      %br
+      Subscription:
+      - semantic_form_for(schedule.subscription_for(current_user)) do |f|
+        - f.inputs do
+          = f.input :user_id, :as => :hidden
+          = f.input :schedule_id, :as => :hidden
+          = f.input :area, :collection => current_user.areas, :include_blank => 'none'
+          = f.input :contact, :collection => current_user.contacts, :include_blank => false, :label => "Contact Method", :label_method => :description
+        - f.buttons do
+          = f.commit_button "Update Subscription"

@@ -1,6 +1,13 @@
 class AreasController < ApplicationController
   before_filter :load_area, :only => [:show, :edit, :update, :destroy]
 
+  def index
+    @areas = current_user.areas
+    respond_to do |format|
+      format.json { render :text => @areas.to_json, :content_type => 'application/json' }
+    end
+  end
+
   def show
     # loaded by load_area
   end

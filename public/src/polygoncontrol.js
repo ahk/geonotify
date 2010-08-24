@@ -551,7 +551,7 @@ PolygonControl.prototype.hoverTooltip = function(){
  * Loads polygons from json
  * @param {Object} record The json representation of polygon
  */
-PolygonControl.prototype.loadPolygons = function(record){
+PolygonControl.prototype.loadPolygon = function(record){
   var me = this;
   var coords = []
   for(var i=0;i<record.geometry.coordinates.length;i++){
@@ -561,8 +561,15 @@ PolygonControl.prototype.loadPolygons = function(record){
   me.storage[polygon.index].title = [record.title,record.title];
   me.storage[polygon.index].starts = [record.starts,record.starts];
   me.storage[polygon.index].ends = [record.ends,record.ends];
+  me.storage[polygon.index].id = record.id;
   me.zuper.map.addOverlay(polygon); 
   return polygon;
+};
+
+PolygonControl.prototype.loadPolygons = function(records){
+  for(var i=0; i<records.length; i++) {
+    PolygonControl.loadPolygon(records[i]);
+  }
 };
 
 /**

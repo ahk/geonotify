@@ -54,8 +54,8 @@ function GeometryControls(opt_opts){
     buttonHeight:'33',
     buttonBorder:'0',
     buttonCursor:'pointer',
-    infoWindowHtmlURL:"examples/data/geometry_html_template.html",
-    stylesheets:["examples/styles/google.maps.base.css","examples/styles/google.maps.ms_styles.css"],
+    infoWindowHtmlURL:"/examples/data/geometry_html_template.html",
+    stylesheets:["/examples/styles/google.maps.base.css","/examples/styles/google.maps.ms_styles.css"],
     autoSave:true, //TODO have option to turn on autoSave for individual controls?
     cssId:"emmc-geom", //for generic components shared between multiple controls 
     debug:true   
