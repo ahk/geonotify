@@ -594,6 +594,8 @@ GeometryControls.prototype.bindInfoWindow = function(geomInfo){
   GEvent.addDomListener(get$(cssId + "-delete"),"click",function(){
     if(confirm("Are you sure you want to delete this?")){
       map.removeOverlay(geometry);
+      record_id = geomInfo.storage[index].id;
+      $.post('/areas/' + record.id, {_method: 'delete'});
       geomInfo.storage[index] = null;
       map.closeInfoWindow();
     } 
@@ -1058,11 +1060,18 @@ GeometryControls.prototype.saveData = function(opts){
 		vertex = record.geometry.getVertex(i);
 		recordJSON.geometry.coordinates.push([vertex.lng(),vertex.lat()]);
 	}
+
+  console.log(record.id);
+
   // stringify the geometry
   recordJSON.geometry = JSON.stringify(recordJSON.geometry);
 	//add title
 	recordJSON.name = record.title[0];
-	$.post('/areas', {area: recordJSON});
+  if(typeof(record.id) == "undefined") {
+    $.post('/areas', {area: recordJSON});
+  } else {
+    $.post('/areas/' + record.id, {area: recordJSON, _method: 'PUT'});
+  }
 };
 
 /**
