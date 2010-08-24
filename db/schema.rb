@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100822105023) do
+ActiveRecord::Schema.define(:version => 20100822181524) do
 
   create_table "areas", :force => true do |t|
     t.text     "geometry"
@@ -35,6 +35,15 @@ ActiveRecord::Schema.define(:version => 20100822105023) do
     t.string   "db_name"
     t.text     "description"
     t.text     "bounds"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "subscriptions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "area_id"
+    t.integer  "schedule_id"
+    t.integer  "contact_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

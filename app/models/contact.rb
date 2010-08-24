@@ -5,6 +5,7 @@ class Contact < ActiveRecord::Base
   }
 
   belongs_to :user
+  has_many :subscriptions
 
   def description
     (self.nickname.present? ? "\"#{self.nickname}\", a " : '') +

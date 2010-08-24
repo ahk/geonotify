@@ -10,4 +10,5 @@ class User < ActiveRecord::Base
 
   has_many :contacts
   has_many :areas
+  has_many :subscriptions
 end

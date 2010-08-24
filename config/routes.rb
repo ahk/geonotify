@@ -7,6 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users do |user|
     map.resources :contacts, :except => [:index], :member => [:send_test_message]
     map.resources :areas, :except => [:index]
+    map.resources :subscriptions
   end
 
   map.resources :schedules
